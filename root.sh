@@ -30,9 +30,9 @@ fi
 
 case $install_ubuntu in
   [yY][eE][sS])
-    wget --tries=$max_retries --timeout=$timeout --no-hsts -O /tmp/rootfs.tar.gz \
-      "http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.4-base-${ARCH_ALT}.tar.gz"
-    tar -xf /tmp/rootfs.tar.gz -C $ROOTFS_DIR
+    wget --tries=$max_retries --timeout=$timeout --no-hsts -O rootfs.tar.gz \
+      "https://cdimage.ubuntu.com/ubuntu-base/releases/22.04/release/ubuntu-base-22.04-base-${ARCH_ALT}.tar.gz"
+    tar -xf rootfs.tar.gz -C $ROOTFS_DIR
     ;;
   *)
     echo "Skipping Ubuntu installation."
@@ -81,4 +81,4 @@ display_gg
 
 $ROOTFS_DIR/usr/local/bin/proot \
   --rootfs="${ROOTFS_DIR}" \
-  -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf --kill-on-exit
+  -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf -b /work/files --kill-on-exit
